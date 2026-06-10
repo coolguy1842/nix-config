@@ -1,0 +1,54 @@
+LOG_DIR=$HOME/.cache/prime-run/
+if [ ! -d $LOG_DIR ]; then
+    mkdir $LOG_DIR
+fi
+
+LOG_FILE=$LOG_DIR/prime-run.log
+USE_GPU=$(prime-run-base || echo "iGPU")
+
+printf "" > $LOG_FILE
+
+ENV_VARS=""
+
+case $USE_GPU in
+dGPU)
+    export VK_LOADER_DRIVERS_DISABLE=""
+
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __EGL_VENDOR_LIBRARY_FILENAMES=$(nvidiaPath)/share/glvnd/egl_vendor.d/10_nvidia.json
+    export VK_DRIVER_FILES=$(nvidiaPath)/share/vulkan/icd.d/nvidia_icd.json
+    export VK_ICD_FILENAMES=$(nvidiaPath)/share/vulkan/icd.d/nvidia_icd.json
+
+    export DXVK_STATE_CACHE_PATH=~/.cache/dxvk
+    export DXVK_FILTER_DEVICE_NAME="RTX 3060"
+
+    export __GL_SHADER_DISK_CACHE_PATH=~/.cache/glshaders
+    export __GL_SHADER_DISK_CACHE=1
+    export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+
+    export GBM_BACKEND=nvidia-drm
+    export VDPAU_DRIVER=nvidia
+    export LIBVA_DRIVER_NAME=nvidia
+
+    export VKD3D_CONFIG=dxr11,dxr
+    export PROTON_ENABLE_NVAPI=1
+    export PROTON_ENABLE_NGX_UPDATER=1
+    export VKD3D_FEATURE_LEVEL=12_2
+    export VKD3D_SHADER_MODEL=6_6
+    
+    export PROTON_DLSS_UPGRADE=1
+    export PROTON_FSR4_UPGRADE=1
+
+    ;;
+iGPU) ;;& *)
+    dunstify -u crit "Prime Run" "dGPU is unavailable, running with IGPU." --timeout=5000
+    echo -e "dGPU unavailable\n" >> $LOG_FILE 
+
+    ;;
+esac
+
+echo -e "env:\n$(env)\n\n" >> $LOG_FILE
+echo -e "running on $USE_GPU with command:\n$@" >> $LOG_FILE
+"$@" |& tee -a $LOG_FILE

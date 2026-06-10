@@ -1,0 +1,10 @@
+{ pkgs, ... }: {
+    users.groups.plugdev = {};
+    services.udev.extraRules = ''
+        KERNEL=="uinput", MODE="0666", GROUP="plugdev"
+        KERNEL=="uhid", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="hidraw", KERNEL=="hidraw*", MODE="0660", GROUP="plugdev"
+        SUBSYSTEM=="input", MODE="0660", GROUP="plugdev"
+        SUBSYSTEM=="usb", MODE="0660", GROUP="plugdev" 
+    '';
+}
