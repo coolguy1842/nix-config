@@ -48,7 +48,7 @@
                         };
 
                         extraSpecialArgs = {
-                            inherit inputs username;
+                            inherit inputs username configName;
                         };
                     };
                 }

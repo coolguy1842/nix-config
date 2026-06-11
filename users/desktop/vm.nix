@@ -86,6 +86,8 @@
         }
 
         function release_gpu() {
+            sleep 1
+
             modprobe nvidia_drm
             modprobe nvidia_modeset
             modprobe nvidia_uvm

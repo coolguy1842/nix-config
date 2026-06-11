@@ -37,6 +37,8 @@
             enable = true;
             terminal = "kitty";
         };
+
+        uwsm.enable = true;
     };
 
     services = {

@@ -1,6 +1,6 @@
 # credit: https://gitlab.com/nicky.tope/nixos-config/-/blob/main/user/desktop/hyprland/default.nix
 
-{ config, pkgs, ... }: let
+{ config, pkgs, configName, ... }: let
     wallpapers = ./wallpapers;
 in {
     wayland.windowManager.hyprland.enable = false;
@@ -13,7 +13,7 @@ in {
 
     xdg.configFile."hypr/hyprland.lua".source =
         config.lib.file.mkOutOfStoreSymlink
-        "${config.home.homeDirectory}/nix-config/users/desktop/home/hyprland/hyprland.lua";
+        "${config.home.homeDirectory}/nix-config/users/${configName}/home/hyprland/hyprland.lua";
     
     home = {
         pointerCursor.hyprcursor.enable = true;
