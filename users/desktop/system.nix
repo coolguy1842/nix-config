@@ -1,5 +1,8 @@
 { lib, pkgs, ... }: {
-    hardware.usb-modeswitch.enable = true;
+    hardware = {
+        usb-modeswitch.enable = true;
+        i2c.enable = true;
+    };
 
     services = {
         # create consistent paths for GPUs
@@ -52,10 +55,5 @@
             
             useDHCP = false;
         };
-    };
-
-    environment.sessionVariables = {
-        __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json";
-        VK_ICD_FILENAMES               = "${pkgs.mesa}/share/vulkan/icd.d/radeon_icd.x86_64.json:${pkgs.mesa}/share/vulkan/icd.d/intel_icd.x86_64.json";
     };
 }

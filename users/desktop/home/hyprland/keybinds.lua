@@ -23,12 +23,28 @@ hl.bind(MAIN_MODIFIER .. " + F", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(MAIN_MODIFIER .. " + M", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(MAIN_MODIFIER .. " + J", hl.dsp.layout("togglesplit"))
 
+hl.bind(MAIN_MODIFIER .. " + P", function()
+    local window = hl.get_active_window()
+    if window == nil or not window.floating then
+        return
+    end
+
+    hl.dispatch(hl.dsp.window.pin({ window = window }))
+
+    if window.pinned then
+        hl.notification.create({ text = "Window Pinned",  timeout = 1500, color = "#62BE5EFF" })
+    else
+        hl.notification.create({ text = "Window Not pinned", timeout = 1500, color = "#C45C5CFF" })
+    end
+end)
+
+
 hl.bind(MAIN_MODIFIER .. " + W", hl.dsp.exec_cmd(WEB_BROWSER))
 hl.bind(MAIN_MODIFIER .. " + N", hl.dsp.exec_cmd(FILE_MANAGER))
 hl.bind(MAIN_MODIFIER .. " + T", hl.dsp.exec_cmd(TERMINAL))
 
 hl.bind(MAIN_MODIFIER .. " + SPACE", hl.dsp.exec_cmd(APP_LAUNCHER))
-hl.bind(MAIN_MODIFIER .. " + P", hl.dsp.exec_cmd(COLOUR_PICKER))
+hl.bind(MAIN_MODIFIER .. " + L", hl.dsp.exec_cmd(COLOUR_PICKER))
 hl.bind("Print", hl.dsp.exec_cmd(SCREENSHOT))
 
 hl.bind(MAIN_MODIFIER .. " + LEFT", hl.dsp.focus({ workspace = "m-1" }), { repeating = true })
@@ -68,3 +84,43 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.25"), { repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
+
+hl.config({
+    misc = {
+        enable_swallow = false,
+        swallow_regex = "^(kitty)$"
+    }
+})
+
+-- only works if the window had been swallowed
+hl.bind(MAIN_MODIFIER .. " + X", hl.dsp.window.toggle_swallow())
+hl.bind(MAIN_MODIFIER .. " + V", function()
+    local should_swallow = not hl.get_config("misc.enable_swallow")
+
+    if should_swallow then
+        hl.notification.create({ text = "Window Swallowing Enabled",  timeout = 1500, color = "#62BE5EFF" })
+    else
+        hl.notification.create({ text = "Window Swallowing Disabled", timeout = 1500, color = "#C45C5CFF" })
+    end
+
+    hl.config({ misc = { enable_swallow = should_swallow }})
+end)
+
+hl.config({ cursor = { zoom_detached_camera = false } })
+hl.bind(MAIN_MODIFIER .. " + SHIFT + mouse_down", function()
+    local zoom = hl.get_config("cursor.zoom_factor")
+
+    zoom = zoom + 0.2
+    hl.config({ cursor = { zoom_factor = zoom }})
+end)
+
+hl.bind(MAIN_MODIFIER .. " + SHIFT + mouse_up", function()
+    local zoom = hl.get_config("cursor.zoom_factor")
+
+    zoom = zoom - 0.5
+    if zoom < 1.0 then
+        zoom = 1.0
+    end
+
+    hl.config({ cursor = { zoom_factor = zoom }})
+end)

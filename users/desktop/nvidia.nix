@@ -24,10 +24,10 @@
     };
 
     environment.systemPackages = with pkgs; [
-        (writeShellScriptBin "check-gpu-usage" (lib.readFile ./scripts/check-gpu-usage.sh))
-        (writeShellScriptBin "prime-run-base"  (lib.readFile ./scripts/prime-run-base.sh))
-        (writeShellScriptBin "prime-run"       (lib.replaceStrings [ "$(nvidiaPath)" ] [ "${config.boot.kernelPackages.nvidiaPackages.latest}" ] (lib.readFile ./scripts/prime-run.sh)))
-        (writeShellScriptBin "prime-run-gamescope"       (lib.replaceStrings [ "$(nvidiaPath)" ] [ "${config.boot.kernelPackages.nvidiaPackages.latest}" ] (lib.readFile ./scripts/prime-run-gamescope.sh)))
+        (writeShellScriptBin "check-gpu-usage"     (lib.readFile ./scripts/check-gpu-usage.sh))
+        (writeShellScriptBin "prime-run-base"      (lib.readFile ./scripts/prime-run-base.sh))
+        (writeShellScriptBin "prime-run"           (lib.readFile ./scripts/prime-run.sh))
+        (writeShellScriptBin "prime-run-gamescope" (lib.readFile ./scripts/prime-run-gamescope.sh))
     ];
 
     environment.sessionVariables = {

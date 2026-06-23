@@ -1,4 +1,4 @@
-{ ... }: {
+{ lib, config, ... }: {
     imports = [
         ./hyprland.nix
         ./ags.nix
@@ -10,7 +10,10 @@
         ./vr.nix
     ];
 
-    services.awww.enable = true;
+    # for immich
+    home.activation.immich-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        mkdir -p ${config.home.homeDirectory}/Pictures/immich
+    '';
 
     programs.looking-glass-client = {
         enable = true;

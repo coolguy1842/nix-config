@@ -29,7 +29,7 @@
 
         package = pkgs.vanilla-dmz;
         name = "Vanilla-DMZ";
-        size = 16;
+        size = 24;
     };
 
     dconf.settings = {

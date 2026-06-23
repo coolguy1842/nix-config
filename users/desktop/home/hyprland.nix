@@ -4,13 +4,31 @@
     wallpapers = ./wallpapers;
 in {
     wayland.windowManager.hyprland.enable = false;
+    services.awww.enable = true;
 
-    xdg.dataFile."hypr/stubs".source = "${pkgs.hyprland}/share/hypr/stubs";    
-    xdg.configFile."hypr/shaders" = {
-        source = ./hyprland/shaders;
-        recursive = true;
+    services.hypridle = {
+        enable = true;
+        
+        settings = {
+            general = {
+                inhibit_sleep = 3;
+
+                lock_cmd = "";
+                before_sleep_cmd = "";
+                after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
+            };
+
+            listener = [
+                {
+                    on-timeout = "hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'";
+                    on-resume = "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
+                    timeout = 900;
+                }
+            ];
+        };
     };
 
+    xdg.dataFile."hypr/stubs".source = "${pkgs.hyprland}/share/hypr/stubs";    
     xdg.configFile."hypr/hyprland.lua".source =
         config.lib.file.mkOutOfStoreSymlink
         "${config.home.homeDirectory}/nix-config/users/${configName}/home/hyprland/hyprland.lua";

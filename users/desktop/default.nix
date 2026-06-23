@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ lib, inputs, pkgs, username, ... }: {
     imports = [
         ./system.nix
         ./nvidia.nix
@@ -32,5 +32,15 @@
         wantedBy = [ "default.target" ];
     };
 
-    services.flatpak.enable = true;
+    services = {
+        flatpak.enable = true;
+        zerotierone.enable = true;
+
+        immich = {
+            enable = true;
+            openFirewall = true;
+
+            host = "0.0.0.0";
+        };
+    };
 }

@@ -29,6 +29,8 @@
 
         variables = with pkgs; {
             GSETTINGS_SCHEMA_DIR = "${gtk3}/share/gsettings-schemas/${gtk3.name}/glib-2.0/schemas:${gtk4}/share/gsettings-schemas/${gtk4.name}/glib-2.0/schemas:${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas";
+            NIXOS_OZONE_WL = "1";
+            PROTON_ENABLE_WAYLAND = "1";
         }; 
     };
 

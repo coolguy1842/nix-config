@@ -7,19 +7,14 @@ package.path = package.path
   .. ";" .. PUBLIC          .. "/?.lua"
   .. ";" .. XDG .. "/hypr"  .. "/?.lua"
 
-require("keybinds")
-require("workspaces")
-require("windowRules")
-require("render")
-require("layout")
-require("input")
-
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 
-hl.on("hyprland.start", function () 
+-- hl.exec_cmd("")
+
+hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 
     -- start daemons, bar and user apps
@@ -41,3 +36,10 @@ hl.on("hyprland.start", function ()
         ferdium &
     ']])
 end)
+
+require("keybinds")
+require("workspaces")
+require("windowRules")
+require("render")
+require("layout")
+require("input")

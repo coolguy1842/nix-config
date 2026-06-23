@@ -21,8 +21,7 @@ hl.config({
         blur = {
             size = 10
         },
-        rounding = 8,
-        screen_shader = os.getenv("HOME") .. "/.config/hypr/shaders/screen-vibrance.glsl"
+        rounding = 8
     },
     render = {
         direct_scanout = 0
@@ -46,8 +45,14 @@ hl.layer_rule({
 hl.env("AQ_DRM_DEVICES", "/dev/dri/intel-card")
 
 -- Monitors
-MAIN_MONITOR = "desc:Philips Consumer Electronics Company PHL 322M8CZ 0x000016F2";
-hl.monitor({ output = MAIN_MONITOR, mode = "1920x1080@165", position = "1680x0", scale = 1 })
+MAIN_MONITOR = "desc:GIGA-BYTE TECHNOLOGY CO. LTD. GS32QA 26142B600128";
+hl.monitor({
+    output = MAIN_MONITOR,
+    mode = "2560x1440@180",
+    position = "1680x0",
+    scale = 1.25,
+    vrr = true
+})
 
 -- workspaces on main monitor
 WORKSPACE_ID = 1
@@ -61,7 +66,7 @@ for id=1,9 do
 end
 
 SECOND_MONITOR = "desc:Hewlett Packard LA2205 3CQ0341FGY";
-hl.monitor({ output = SECOND_MONITOR, mode = "1680x1050@60", position = "0x30" })
+hl.monitor({ output = SECOND_MONITOR, mode = "1680x1050@60", position = "0x100" })
 
 -- workspaces on second monitor
 for id=1,2 do

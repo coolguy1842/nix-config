@@ -51,6 +51,7 @@ in {
         # cli tools
         smartmontools
         fastfetch
+        ddcutil
         
         # audio/media
         jellyfin-media-player
@@ -67,7 +68,8 @@ in {
         gimp
         krita
         (GPUOffloadApp (blender.override { cudaSupport=true; }) "blender")
-        (GPUOffloadApp openscad "openscad")
+        # broken for now
+        # (GPUOffloadApp openscad "openscad")
 
         # scripts
         (writeShellScriptBin "rebuild-switch" "sudo nixos-rebuild switch --flake ~/nix-config#desktop --impure")

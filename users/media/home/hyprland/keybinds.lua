@@ -36,3 +36,11 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.25"), { repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
+
+local DPMS_STATUS = true
+hl.bind(MAIN_MODIFIER .. " + ESCAPE", function()
+    hl.timer(function()
+        DPMS_STATUS = not DPMS_STATUS
+        hl.dispatch(hl.dsp.dpms({ action = DPMS_STATUS and "enabled" or "disabled" }))
+    end, {timeout = 500, type = "oneshot"})
+end)

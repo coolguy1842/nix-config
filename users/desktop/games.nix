@@ -68,6 +68,12 @@
 
         gcc
         glibc
+
+        pulseaudio
+
+        vulkan-loader
+        vulkan-validation-layers
+        vulkan-extension-layer
     ];
 in {
     services.ananicy = with pkgs; {
@@ -93,10 +99,14 @@ in {
         gamemode.enable = true;
         gamescope = {
             enable = true;
+
             args = [
-                "-W 1920"
-                "-H 1080"
-                "-r 165"
+                "-w 2560"
+                "-h 1440"
+                "-W 2560"
+                "-H 1440"
+                "-r 180"
+                "-f"
             ];
 
             capSysNice = false;
@@ -160,6 +170,7 @@ in {
         (GPUOffloadApp dolphin-emu "dolphin-emu")
         (GPUOffloadApp cemu "info.cemu.Cemu")
         (GPUOffloadApp ryubing "Ryujinx")
+        (GPUOffloadApp eden "dev.eden_emu.eden")
         (GPUOffloadApp chiaki-ng "chiaking")
         (GPUOffloadApp ppsspp "ppsspp")
     ];
