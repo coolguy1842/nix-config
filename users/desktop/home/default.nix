@@ -1,4 +1,4 @@
-{ lib, config, ... }: {
+{ lib, pkgs, config, ... }: {
     imports = [
         ./hyprland.nix
         ./ags.nix
@@ -17,6 +17,13 @@
 
     programs.looking-glass-client = {
         enable = true;
+        package = (
+            pkgs.looking-glass-client.overrideAttrs (old: {
+                patches = (old.patches or []) ++ [
+                    ../patches/looking-glass-super.patch
+                ];
+            })
+        );
 
         settings = {
             win = {

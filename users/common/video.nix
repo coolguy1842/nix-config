@@ -1,6 +1,8 @@
 { lib, pkgs, ... }: {
     services.xserver.videoDrivers = [ "amd" "modesetting" ];
     hardware = {
+        amdgpu.initrd.enable = true;
+
         graphics = {
             enable = true;
             enable32Bit = true;
@@ -25,8 +27,6 @@
     };
 
     environment.sessionVariables = {
-        LIBVA_DRIVER_NAME = "iHD";
-        
         __EGL_VENDOR_LIBRARY_FILENAMES = lib.mkDefault (lib.strings.join ":" [
             "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json"
         ]);

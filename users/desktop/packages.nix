@@ -16,6 +16,13 @@ in {
     programs = {
         virt-manager.enable = true;
         ente-auth.enable = true;
+
+        obs-studio = {
+            enable = true;
+            plugins = with pkgs; [
+                obs-studio-plugins.obs-pipewire-audio-capture
+            ];
+        };
     };
 
     users.users."${username}".packages = with pkgs; [
@@ -55,9 +62,9 @@ in {
         
         # audio/media
         jellyfin-media-player
-        obs-studio
         pavucontrol
         qcomicbook
+        koreader
         dopamine
         cheese
         loupe
@@ -70,10 +77,5 @@ in {
         (GPUOffloadApp (blender.override { cudaSupport=true; }) "blender")
         # broken for now
         # (GPUOffloadApp openscad "openscad")
-
-        # scripts
-        (writeShellScriptBin "rebuild-switch" "sudo nixos-rebuild switch --flake ~/nix-config#desktop --impure")
-        (writeShellScriptBin "rebuild-boot" "sudo nixos-rebuild boot --flake ~/nix-config#desktop --impure")
-        (writeShellScriptBin "rebuild-test" "sudo nixos-rebuild test --flake ~/nix-config#desktop --impure")
     ];
 }

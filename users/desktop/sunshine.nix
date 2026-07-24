@@ -16,26 +16,13 @@
 
             adapter_name = "/dev/dri/intel-render";
             kms_node = "/dev/dri/intel-card";
+
+            global_prep_cmd = ''[
+                {
+                    "do": "systemctl stop --user hypridle.service && hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'",
+                    "undo": "systemctl start --user hypridle.service"
+                }
+            ]'';
         };
-
-
-        applications.apps = [
-            {
-                name = "Desktop";
-                prep-cmd = [
-                    {
-                        do = "${(pkgs.writeShellScriptBin "startSunshine" ''
-                            hyprctl eval 'hl.monitor({ output = SECOND_MONITOR, disabled = true })'
-                        '')}/bin/startSunshine";
-                        undo = "${(pkgs.writeShellScriptBin "stopSunshine" ''
-                            hyprctl reload
-                        '')}/bin/stopSunshine";
-                    }
-                ];
-
-                exclude-global-prep-cmd = "false";
-                auto-detach = "true";
-            }
-        ];
     };
 }

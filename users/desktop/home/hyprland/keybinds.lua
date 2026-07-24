@@ -38,7 +38,6 @@ hl.bind(MAIN_MODIFIER .. " + P", function()
     end
 end)
 
-
 hl.bind(MAIN_MODIFIER .. " + W", hl.dsp.exec_cmd(WEB_BROWSER))
 hl.bind(MAIN_MODIFIER .. " + N", hl.dsp.exec_cmd(FILE_MANAGER))
 hl.bind(MAIN_MODIFIER .. " + T", hl.dsp.exec_cmd(TERMINAL))

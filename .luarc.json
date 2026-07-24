@@ -1,5 +1,9 @@
 {
     "workspace.library": [
         "~/.local/share/hypr/stubs/hl.meta.lua"
+    ],
+    "diagnostics.globals": [
+        "switch",
+        "indexOf"
     ]
 }

@@ -20,8 +20,8 @@ dGPU)
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __GLX_VENDOR_LIBRARY_NAME="nvidia"
     export __EGL_VENDOR_LIBRARY_FILENAMES="/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json"
-    export VK_DRIVER_FILES=$icd_files
-    export VK_ICD_FILENAMES=$icd_files
+    export VK_DRIVER_FILES="$icd_files"
+    export VK_ICD_FILENAMES="$icd_files"
 
     export DXVK_STATE_CACHE_PATH="~/.cache/dxvk"
     export DXVK_FILTER_DEVICE_NAME="RTX 3060"
@@ -29,6 +29,7 @@ dGPU)
     export __GL_SHADER_DISK_CACHE_PATH="~/.cache/glshaders"
     export __GL_SHADER_DISK_CACHE=1
     export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+    export __GL_THREADED_OPTIMIZATIONS=1
 
     export GBM_BACKEND="nvidia-drm"
     export VDPAU_DRIVER="nvidia"
@@ -42,6 +43,10 @@ dGPU)
     
     export PROTON_DLSS_UPGRADE=1
     export PROTON_FSR4_UPGRADE=1
+    export PROTON_XESS_UPGRADE=1
+    export PROTON_ENABLE_WAYLAND=1
+    export PROTON_PREFER_SDL=1
+    export PROTON_NO_STEAMINPUT=1
 
     ;;
 iGPU) ;;& *)

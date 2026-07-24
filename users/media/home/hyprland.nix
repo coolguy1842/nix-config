@@ -8,6 +8,27 @@
         config.lib.file.mkOutOfStoreSymlink
         "${config.home.homeDirectory}/nix-config/users/${configName}/home/hyprland/hyprland.lua";
 
+    services.hypridle = {
+        enable = true;
+        
+        settings = {
+            general = {
+                inhibit_sleep = 0;
+
+                lock_cmd = "";
+                before_sleep_cmd = "";
+                after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
+            };
+
+            listener = [
+                {
+                    timeout = 900;
+                    on-timeout = "systemctl suspend";
+                }
+            ];
+        };
+    };
+
     home = {
         pointerCursor.hyprcursor.enable = true;
         packages = with pkgs; [

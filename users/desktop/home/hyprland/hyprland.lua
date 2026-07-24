@@ -12,8 +12,6 @@ hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 
--- hl.exec_cmd("")
-
 hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user import-environment PATH WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 
@@ -37,9 +35,11 @@ hl.on("hyprland.start", function()
     ']])
 end)
 
+require("utils")
 require("keybinds")
 require("workspaces")
 require("windowRules")
 require("render")
 require("layout")
 require("input")
+require("games")

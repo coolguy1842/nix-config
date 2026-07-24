@@ -139,22 +139,12 @@
         '';
         destination = "/etc/udev/rules.d/90-kvmfr.rules";
     };
-
-    patchedLG = pkgs.looking-glass-client.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [
-            ./patches/looking-glass-super.patch
-        ];
-    });
 in {
     virtualisation.libvirtd.hooks.qemu = {
         hugepages_handler = "${hugepage_handler}";
         notification_handler = "${notification_handler}";
         gpubind_handler = "${gpubind_handler}";
     };
-
-    environment.systemPackages = with pkgs; [
-        patchedLG
-    ];
 
     boot.extraModulePackages = [ config.boot.kernelPackages.kvmfr ];
     boot.kernelModules = [

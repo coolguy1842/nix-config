@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, configName, ... }: {
     imports = [
         ./extra/plugdev.nix
 
@@ -30,5 +30,9 @@
         unzip
         
         appimage-run
+
+        (writeShellScriptBin "rebuild-switch" "sudo nixos-rebuild switch --flake ~/nix-config#${configName} --impure")
+        (writeShellScriptBin "rebuild-boot" "sudo nixos-rebuild boot --flake ~/nix-config#${configName} --impure")
+        (writeShellScriptBin "rebuild-test" "sudo nixos-rebuild test --flake ~/nix-config#${configName} --impure")
     ];
 }

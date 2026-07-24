@@ -106,7 +106,6 @@ in {
                 "-W 2560"
                 "-H 1440"
                 "-r 180"
-                "-f"
             ];
 
             capSysNice = false;

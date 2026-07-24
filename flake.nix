@@ -29,7 +29,7 @@
     };
 
     outputs = { nixpkgs, home-manager, ... } @ inputs: let
-        defaultConfig = configName: username: customModule: nixpkgs.lib.nixosSystem {
+        defaultConfig = configName: username: customModules: nixpkgs.lib.nixosSystem {
             modules = [
                 /etc/nixos/hardware-configuration.nix
                 ./users/common
@@ -52,20 +52,22 @@
                         };
                     };
                 }
-                inputs.savesyncd.nixosModules.default
                 { nixpkgs.hostPlatform = "x86_64-linux"; }
                 { nixpkgs.config.allowUnfree = true; }
                 # TODO: allow for agsv1(not ideal)
                 { nixpkgs.config.permittedInsecurePackages = [ "libsoup-2.74.3" ]; }
-                customModule
-            ];
+            ] ++ customModules;
 
             specialArgs = { inherit inputs configName username; };
         };
     in {
         nixosConfigurations = {
-            desktop = defaultConfig "desktop" "coolguy" {};
-            media = defaultConfig "media" "media" {};
+            desktop = defaultConfig "desktop" "coolguy" [
+                inputs.savesyncd.nixosModules.default
+                inputs.capturecardrelay.nixosModules.x86_64-linux.default
+            ];
+
+            media = defaultConfig "media" "media" [];
         };
     };
 }

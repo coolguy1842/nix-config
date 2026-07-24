@@ -38,22 +38,40 @@
     },
     "capturecardrelay": {
       "inputs": {
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "systems": "systems_2"
+        ]
       },
       "locked": {
-        "lastModified": 1782040855,
-        "narHash": "sha256-dcJjIMQRKNnBpaI3VeXmdRxjX5fmhU6qQdH02k0qFq8=",
+        "lastModified": 1783494287,
+        "narHash": "sha256-ZCW+dL5NhLIgUWti54pSvz6OetfLpWxQSe67CkWpjeA=",
         "owner": "coolguy1842",
         "repo": "CaptureCardRelay",
-        "rev": "1446e4a6d2a7887dd39ddfe8b0f9a3447ae6a1a8",
+        "rev": "de19cf54c8df229bcc571bb0d3293acdd38fff73",
         "type": "github"
       },
       "original": {
         "owner": "coolguy1842",
         "repo": "CaptureCardRelay",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -215,8 +233,9 @@
         "type": "github"
       },
       "original": {
-        "id": "systems",
-        "type": "indirect"
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
       }
     },
     "systems_3": {

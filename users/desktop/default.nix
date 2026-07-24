@@ -16,6 +16,18 @@
             enable = true;
             xwayland.enable = true;
         };
+
+        CaptureCardRelay = {
+            enable = true;
+
+            settings = {
+                camera = "Live Gamer MINI";
+                recordingDevice = "Live Gamer MINI Analog Stereo";
+                displayMode = "contain";
+                frameLimiting = "camera";
+                fullscreen = true;
+            };
+        };
     };
 
     hardware.opentabletdriver = {

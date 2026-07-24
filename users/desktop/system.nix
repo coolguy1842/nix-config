@@ -1,4 +1,6 @@
 { lib, pkgs, ... }: {
+    boot.enableContainers = true;
+
     hardware = {
         usb-modeswitch.enable = true;
         i2c.enable = true;
